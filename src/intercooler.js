@@ -363,7 +363,7 @@ var Intercooler = Intercooler || (function() {
   }
 
   function replaceOrAddMethod(data, actualMethod) {
-    if ($.type(data) === "string") {
+    if (typeof data === "string") {
       var regex = /(&|^)_method=[^&]*/;
       var content = "&_method=" + actualMethod;
       if (regex.test(data)) {
@@ -451,7 +451,7 @@ var Intercooler = Intercooler || (function() {
       });
       var counter = 0;
       $(paramsToPush.split(",")).each(function(index) {
-        var param = $.trim(this);
+        var param = this.trim();
         var value = vars[param] || "";
         for (var i = 0; i < value.length; i++) {
           var child = value[i];
@@ -587,7 +587,7 @@ var Intercooler = Intercooler || (function() {
         maybeInvokeLocalAction(elt, "-complete");
       }
     };
-    if ($.type(data) != "string") {
+    if (typeof data != "string") {
       ajaxSetup.dataType = null;
       ajaxSetup.processData = false;
       ajaxSetup.contentType = false;
@@ -634,7 +634,7 @@ var Intercooler = Intercooler || (function() {
   }
 
   function processIncludes(data, str) {
-    if ($.trim(str).indexOf("{") == 0) {
+    if (str.trim().indexOf("{") == 0) {
       var obj = $.parseJSON(str);
       $.each(obj, function(name, value) {
         data = appendData(data, name, value);
@@ -652,7 +652,7 @@ var Intercooler = Intercooler || (function() {
 
   function processLocalVars(data, str) {
     $(str.split(",")).each(function() {
-      var key = $.trim(this);
+      var key = this.trim();
       var item = localStorage.getItem(key);
       if(item) {
         data = appendData(data, key, item);
@@ -662,8 +662,8 @@ var Intercooler = Intercooler || (function() {
   }
 
   function appendData(data, key, value) {
-    if ($.type(data) === "string") {
-      if($.type(value) !== "string") {
+    if (typeof data === "string") {
+      if (typeof value !== "string") {
         value = JSON.stringify(value);
       }
       return data + "&" + key + "=" + encodeURIComponent(value);
@@ -1074,7 +1074,7 @@ var Intercooler = Intercooler || (function() {
       var values = getICAttribute(elt, 'ic-add-class').split(",");
       var arrayLength = values.length;
       for (var i = 0; i < arrayLength; i++) {
-        parseAndApplyClass($.trim(values[i]), elt, 'addClass');
+        parseAndApplyClass(values[i].trim(), elt, 'addClass');
       }
     }
   }
@@ -1085,7 +1085,7 @@ var Intercooler = Intercooler || (function() {
       var values = getICAttribute(elt, 'ic-remove-class').split(",");
       var arrayLength = values.length;
       for (var i = 0; i < arrayLength; i++) {
-        parseAndApplyClass($.trim(values[i]), elt, 'removeClass');
+        parseAndApplyClass(values[i].trim(), elt, 'removeClass');
       }
     }
   }
@@ -1687,7 +1687,7 @@ var Intercooler = Intercooler || (function() {
     var delay = 0;
 
     $.each(actionArr, function(i, actionStr) {
-      var actionDef = $.trim(actionStr);
+      var actionDef = actionStr.trim();
       var action = actionDef;
       var actionArgs = [];
       if (actionDef.indexOf(":") > 0) {
@@ -1721,7 +1721,7 @@ var Intercooler = Intercooler || (function() {
     try {
       return eval("[" + args + "]")
     } catch (e) {
-      return [$.trim(args)];
+      return [args.trim()];
     }
   }
 
