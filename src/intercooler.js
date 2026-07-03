@@ -1156,7 +1156,7 @@ var Intercooler = Intercooler || (function() {
       }
       var triggerOnArray = triggerOnValue.split(",");
       for (var i = 0; i < triggerOnArray.length; i++) {
-        var triggerOn = $.trim(triggerOnArray[i]);
+        var triggerOn = triggerOnArray[i].trim();
         var splitTriggerOn = triggerOn.split(" ");
         var eventString = eventFor(splitTriggerOn[0], $(elt));
         var eventModifier = splitTriggerOn[1];
